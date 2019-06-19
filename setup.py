@@ -6,7 +6,7 @@ __version__ = '0.0.1'
 
 ENTRY_POINTS = {
     'obspy.plugin.waveform': [
-        'DMX = obspy.io.dmx.core',],
+        'DMX = obspy_dmx.core',],
     'obspy.plugin.waveform.DMX': [
         'isFormat = obspy_dmx.core:_is_dmx',
         'readFormat = obspy_dmx.core:_read_dmx',
