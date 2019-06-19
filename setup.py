@@ -1,4 +1,4 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 import sys
 import setuptools
 
@@ -23,4 +23,6 @@ setup(
     long_description='',
     entry_points=ENTRY_POINTS,
     zip_safe=True,
+    packages=find_packages(),
+    include_package_data=True,
 )
