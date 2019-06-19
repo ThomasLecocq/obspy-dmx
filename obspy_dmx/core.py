@@ -81,7 +81,7 @@ def _read_dmx(filename, head_only=None, **kwargs):
                 tr.stats.channel = descripttrace.component.rstrip('\x00').rstrip(' ')
                 tr.stats.sampling_rate = descripttrace.rate
                 tr.stats.starttime = UTCDateTime(descripttrace.begintime)
-                tr.stats.dmx = descripttrace
+                tr.stats.dmx = {**descripttrace, **structtag}
                 traces.append(tr)
             else:
                 fid.seek(int(structtag.len_struct) + int(structtag.len_data), 1)
