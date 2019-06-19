@@ -14,7 +14,7 @@ ENTRY_POINTS = {
 }
 
 setup(
-    name='obspy-dmx',
+    name='obspy_dmx',
     version=__version__,
     author='Thomas Lecocq & ...',
     author_email='thomas.lecocq@seismology.be',
