@@ -67,6 +67,10 @@ def _is_dmx(filename):
     return True
 
 def _read_dmx(filename, head_only=None, **kwargs):
+    station = None
+    if "station" in kwargs:
+        station = kwargs["station"]
+
     traces = []
     with open(filename, "rb") as fid:
         while fid.read(12): # we require at least 1 full structtag
@@ -74,17 +78,26 @@ def _read_dmx(filename, head_only=None, **kwargs):
             structtag = readstructtag(fid)
             if structtag.id_struct == 7:
                 descripttrace = readdescripttrace(fid)
-                data = readdata(fid, descripttrace.length, descripttrace.datatype)
-                tr = Trace(data=np.asarray(data))
-                tr.stats.network = descripttrace.network.rstrip('\x00').rstrip(' ')
-                tr.stats.station = descripttrace.st_name.rstrip('\x00').rstrip(' ')
-                tr.stats.channel = descripttrace.component.rstrip('\x00').rstrip(' ')
-                tr.stats.sampling_rate = descripttrace.rate
-                tr.stats.starttime = UTCDateTime(descripttrace.begintime)
-                tr.stats.dmx = {**descripttrace, **structtag}
-                traces.append(tr)
+                if station is None or descripttrace.st_name.rstrip(
+                        '\x00').rstrip(' ') == station:
+                    data = readdata(fid, descripttrace.length,
+                                    descripttrace.datatype)
+                    tr = Trace(data=np.asarray(data))
+                    tr.stats.network = descripttrace.network.rstrip(
+                        '\x00').rstrip(' ')
+                    tr.stats.station = descripttrace.st_name.rstrip(
+                        '\x00').rstrip(' ')
+                    tr.stats.channel = descripttrace.component.rstrip(
+                        '\x00').rstrip(' ')
+                    tr.stats.sampling_rate = descripttrace.rate
+                    tr.stats.starttime = UTCDateTime(descripttrace.begintime)
+                    tr.stats.dmx = descripttrace
+                    traces.append(tr)
+                else:
+                    fid.seek(int(structtag.len_data), 1)
             else:
                 fid.seek(int(structtag.len_struct) + int(structtag.len_data), 1)
+
     st = Stream(traces=traces)
     return st
 
