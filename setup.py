@@ -18,7 +18,7 @@ setup(
     version=__version__,
     author='Thomas Lecocq & ...',
     author_email='thomas.lecocq@seismology.be',
-    url='https://github.com/ThomasLecopcq/obspy-dmx',
+    url='https://github.com/ThomasLecocq/obspy-dmx',
     description='ObsPy reader for DMX format (INGV)',
     long_description='',
     entry_points=ENTRY_POINTS,
