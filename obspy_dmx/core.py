@@ -2,6 +2,7 @@ from obspy.core.util.attribdict import AttribDict
 from obspy import Stream, Trace, UTCDateTime
 import numpy as np
 import struct
+import io
 
 descript_trace_dtypes = np.dtype([('network', "4S"),
                        ("st_name", "5S"),
@@ -88,6 +89,8 @@ def _is_dmx(filename):
         return False
     return True
 
+from tempfile import SpooledTemporaryFile
+
 def _read_dmx(filename, head_only=None, **kwargs):
     station = None
     if "station" in kwargs:
@@ -95,6 +98,12 @@ def _read_dmx(filename, head_only=None, **kwargs):
 
     traces = []
     with open(filename, "rb") as fid:
+        content = fid.read()
+
+    with SpooledTemporaryFile(mode='w+b') as fid:
+        fid.write(content)
+        fid.seek(0)
+
         while fid.read(12): # we require at least 1 full structtag
             fid.seek(-12, 1)
             structtag = readstructtag(fid)
