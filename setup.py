@@ -22,7 +22,9 @@ setup(
     description='ObsPy reader for DMX format (INGV)',
     long_description='',
     entry_points=ENTRY_POINTS,
-    zip_safe=True,
+    zip_safe=False,
     packages=find_packages(),
     include_package_data=True,
+    # packages=['obspy_dmx', 'obspy_dmx.tests', 'obspy_dmx.tests.data'],
+    # package_data={'obspy_dmx': ['obspy_dmx/tests/data/*.*']},
 )

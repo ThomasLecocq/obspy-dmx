@@ -1,0 +1,1 @@
+recursive-include obspy_dmx/tests *.*
