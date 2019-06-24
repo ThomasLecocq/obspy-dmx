@@ -1,5 +1,5 @@
 # obspy-dmx
-INGV DMX reader (to be added to obspy, already functionnal but no complete test suite)
+INGV DMX reader (which will be added to ObsPy in the future)
 
 This reader is based on the Matlab version by Andrea Cannata, rewritten to use Numpy's fromfile method for efficiency.
 
