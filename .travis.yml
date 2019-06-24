@@ -53,3 +53,4 @@ script:
   - mkdir empty
   - cd empty
   - python -c "from obspy import read; from obspy_dmx.core import _read_dmx"
+  - pytest --pyargs obspy_dmx
