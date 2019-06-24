@@ -41,7 +41,7 @@ before_install:
   - hash -r
   - conda update -q --yes conda
   # Installs required packages
-  - conda install --yes -q -c conda-forge  pip python=$PYTHON_VERSION
+  - conda install --yes -q -c conda-forge pip python=$PYTHON_VERSION
   - conda install --yes -q -c conda-forge obspy
   - ls -la
 
