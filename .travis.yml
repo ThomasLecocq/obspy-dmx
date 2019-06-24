@@ -43,6 +43,7 @@ before_install:
   # Installs required packages
   - conda install --yes -q -c conda-forge pip python=$PYTHON_VERSION
   - conda install --yes -q -c conda-forge obspy
+  - conda install --yes -q -c conda-forge pytest
   - ls -la
 
 install:
